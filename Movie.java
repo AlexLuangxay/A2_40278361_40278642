@@ -3,6 +3,9 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import Exceptions_Classes.ExcessFieldsException;
+import Exceptions_Classes.MissingFieldsException;
+
 public class Movie {
     // Attributes
     int year;
@@ -70,26 +73,34 @@ public class Movie {
             try {
                 FileInputStream file = new FileInputStream(manifest_part1[i]);
                 Scanner sc = new Scanner(file);
-                String line = sc.nextLine();
 
-                String[] movie = line.split(",");
-                if (movie.length < 9) {
-                   throw new MissingFieldsException("The file " + manifest_part1[i] + " is not a valid movie file");
-                }
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
 
-                if (movie.length > 9) {
-                    throw new ExtraExcessFieldsExceptionFieldsException("The file " + manifest_part1[i] + " is not a valid movie file");
-                }
+                    String[] movie = line.split(",");
+                    if (movie.length < 9) {
+                        throw new MissingFieldsException(
+                                "The file " + manifest_part1[i] + " is not a valid movie file");
+                    }
 
-                if(movie[0].length() != 4){
-                    throw new YearFormatException("The file " + manifest_part1[i] + " is not a valid movie file");
-                }
+                    if (movie.length > 9) {
+                        throw new ExcessFieldsException("The file " + manifest_part1[i] + " is not a valid movie file");
+                    }
 
-                sc.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-        }
-    }
+                    
+                        
+                        
+                        
+                        lose();
+                        (Exception e) {
+                        em.out.println("Error: " + e);
+                        
+                        
+                        
+                        
+                        
+                                
+                    
+                
 
-}
+                
