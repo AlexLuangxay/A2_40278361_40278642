@@ -66,6 +66,29 @@ public class Movie {
 
     public static void do_part_one_manifest(String[] manifest_part1) {
 
+        for (int i = 0; i < 10; i++) {
+            try {
+                FileInputStream file = new FileInputStream(manifest_part1[i]);
+                Scanner sc = new Scanner(file);
+                String line = sc.nextLine();
+                while (sc.hasNextLine()) {
+                    String[] movie = line.split(",");
+                    if (movie.length != 9) {
+                        System.out.println("Error: " + manifest_part1[i] + " has a movie with wrong format");
+                    }
+                    line = sc.nextLine();
+                }
+
+
+
+
+
+
+                sc.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        }
     }
 
 }
