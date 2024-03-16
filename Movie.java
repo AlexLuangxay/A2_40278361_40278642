@@ -1,8 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.util.Scanner;
 import Exceptions.*;
+import java.io.FileWriter;
 
 public class Movie {
     // Attributes
@@ -106,8 +106,11 @@ public class Movie {
 
                         if (!genre.equals("Action") && !genre.equals("Adventure") && !genre.equals("Comedy")
                                 && !genre.equals("Drama") && !genre.equals("Horror") && !genre.equals("Musical")
-                                && !genre.equals("Science Fiction") && !genre.equals("War")
-                                && !genre.equals("Western")) {// BadGenreException
+                                && !genre.equals("Sci-Fi") && !genre.equals("Mystery")
+                                && !genre.equals("Western") && !genre.equals("Animation") && !genre.equals("Biography")
+                                && !genre.equals("Crime") && !genre.equals("Documentary")
+                                && !genre.equals("Thriller") && !genre.equals("Western") && !genre.equals("Family")
+                                && !genre.equals("Romance")) {// BadGenreException
                             throw new BadGenreException("The genre is not valid");
                         }
 
@@ -138,41 +141,172 @@ public class Movie {
                                 }
                             }
                         }
-                        if (movie[7].equals("") || movie[8].equals("") || movie[9].equals("")) {
+                        if (actor1.equals("") || actor2.equals("") || actor3.equals("")) {
                             throw new BadNameException("The file " + manifest_part1[i] + " is missing an actor(s)");
                         }
 
-                        if (movie[1].equals("")) {
+                        if (title.equals("")) {
                             throw new BadTitleException("The file " + manifest_part1[i] + " is missing a title");
                         }
-                    }catch (BadDurationException e) {
+
+                        Movie.sortMovie(movie);
+                        sc.close();
+
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
-                    } catch (BadGenreException e) {
-                        System.out.println(e.getMessage());
-                    } catch (BadNameException e) {
-                        System.out.println(e.getMessage());
-                    } catch (BadRatingException e) {
-                        System.out.println(e.getMessage());
-                    } catch (BadScoreException e) {
-                        System.out.println(e.getMessage());
-                    } catch (BadTitleException e) {
-                        System.out.println(e.getMessage());
-                    } catch (ExcessFieldsException e) {
-                        System.out.println(e.getMessage());
-                    } catch (MissingFieldsException e) {
-                        System.out.println(e.getMessage());
-                    } catch (MissingQuotesException e) {
-                        System.out.println(e.getMessage());
-                    } catch (BadYearException e) {
-                        System.out.println(e.getMessage());
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("bad_movie_records.txt", true));
+                        writer.write(line);
+                        writer.newLine();
+                        writer.close();
                     }
                 }
-            }
-
-            catch (Exception e) {
-                System.out.println("Error: " + e);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
         }
+    }
+
+    // Method that sorts the movies by genre
+    public static void sortMovie(String[] movie) {
+        try {
+            if (movie[3].equals("Action")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\action.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Adventure")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\adventure.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Comedy")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\comedy.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Drama")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\drama.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Horror")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\horror.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+            if (movie[3].equals("Musical")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\musical.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+            if (movie[3].equals("Sci-Fi")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\sci_fi.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Animation")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\animation.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Crime")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\crime.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Fantasy")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\fantasy.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Mystery")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\mystery.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Romance")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\romance.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Thriller")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\thriller.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Western")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\western.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Family")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\family.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Biography")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\biography.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("Documentary")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\documentary.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
