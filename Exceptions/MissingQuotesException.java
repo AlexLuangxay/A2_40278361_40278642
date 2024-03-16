@@ -1,4 +1,4 @@
-package Exceptions_Classes;
+package Exceptions;
 public class MissingQuotesException extends Exception{
     
     public MissingQuotesException(String message){

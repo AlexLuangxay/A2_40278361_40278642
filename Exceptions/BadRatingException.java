@@ -1,4 +1,4 @@
-package Exceptions_Classes;
+package Exceptions;
 public class BadRatingException extends Exception{
     
     public BadRatingException(String message){
