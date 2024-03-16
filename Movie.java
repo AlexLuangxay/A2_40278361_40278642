@@ -71,18 +71,19 @@ public class Movie {
                 FileInputStream file = new FileInputStream(manifest_part1[i]);
                 Scanner sc = new Scanner(file);
                 String line = sc.nextLine();
-                while (sc.hasNextLine()) {
-                    String[] movie = line.split(",");
-                    if (movie.length != 9) {
-                        System.out.println("Error: " + manifest_part1[i] + " has a movie with wrong format");
-                    }
-                    line = sc.nextLine();
+
+                String[] movie = line.split(",");
+                if (movie.length < 9) {
+                   throw new MissingFieldsException("The file " + manifest_part1[i] + " is not a valid movie file");
                 }
 
+                if (movie.length > 9) {
+                    throw new ExtraExcessFieldsExceptionFieldsException("The file " + manifest_part1[i] + " is not a valid movie file");
+                }
 
-
-
-
+                if(movie[0].length() != 4){
+                    throw new YearFormatException("The file " + manifest_part1[i] + " is not a valid movie file");
+                }
 
                 sc.close();
             } catch (Exception e) {
