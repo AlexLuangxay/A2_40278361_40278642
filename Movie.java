@@ -49,7 +49,6 @@ public class Movie {
             while (sc.hasNextLine() && count < 10) {
                 String line = sc.nextLine();
                 manifest_part1[count] = line;
-                System.out.println(line);
                 count++;
             }
             sc.close();
@@ -66,26 +65,28 @@ public class Movie {
 
         for (int i = 0; i < 10; i++) {
             try {
-                FileInputStream file = new FileInputStream(manifest_part1[i]);
+                FileInputStream file = new FileInputStream("Input files\\" + manifest_part1[i]);
                 Scanner sc = new Scanner(file);
 
                 while (sc.hasNextLine()) {
 
                     String line = sc.nextLine();
                     String[] movie = line.split(",");
-                    int year = Integer.parseInt(movie[0]);
-                    String title = movie[1];
-                    int duration = Integer.parseInt(movie[2]);
-                    String genre = movie[3];
-                    String rating = movie[4];
-                    double score = Double.parseDouble(movie[5]);
-                    String director = movie[6];
-                    String actor1 = movie[7];
-                    String actor2 = movie[8];
-                    String actor3 = movie[9];
 
                     // CHECKING SEMENTIC ERRORS
                     try {
+
+                        int year = Integer.parseInt(movie[0]);
+                        String title = movie[1];
+                        int duration = Integer.parseInt(movie[2]);
+                        String genre = movie[3];
+                        String rating = movie[4];
+                        double score = Double.parseDouble(movie[5]);
+                        String director = movie[6];
+                        String actor1 = movie[7];
+                        String actor2 = movie[8];
+                        String actor3 = movie[9];
+
                         if (year < 1900 || year > 2000) {// BadYearException
                             throw new BadYearException("The year is not valid");
                         }
@@ -109,38 +110,39 @@ public class Movie {
                                 && !genre.equals("Sci-Fi") && !genre.equals("Mystery")
                                 && !genre.equals("Western") && !genre.equals("Animation") && !genre.equals("Biography")
                                 && !genre.equals("Crime") && !genre.equals("Documentary")
-                                && !genre.equals("Thriller") && !genre.equals("Western") && !genre.equals("Family")
-                                && !genre.equals("Romance")) {// BadGenreException
+                                && !genre.equals("Thriller") && !genre.equals("Family")
+                                && !genre.equals("Romance") && !genre.equals("Fantasy")) {// BadGenreException
                             throw new BadGenreException("The genre is not valid");
                         }
 
                         // CHECKING SYNTAX ERRORS
-                        if (movie.length < 9) { // EccessFieldsException
+                        if (movie.length < 10) { // EccessFieldsException
                             throw new MissingFieldsException(
                                     "The file " + manifest_part1[i] + " is missing a field");
                         }
 
-                        if (movie.length > 9) {// MissingFieldsException
+                        if (movie.length > 10) {// MissingFieldsException
                             throw new ExcessFieldsException(
                                     "The file " + manifest_part1[i] + " has an excess of fields");
                         }
 
-                        // Number of quotes need to be even
-                        for (int j = 0; j < movie.length; j++) { // loop that goes through each string of the array
-                            for (int k = 0; k < movie[j].length(); k++) { // loop that goes through each character of
-                                                                          // the
-                                                                          // string, to search a quote
-                                int number_of_quotes = 0;
-                                if (movie[j].charAt(k) == '"') { // if the character is a quote, increment the number of
-                                                                 // quotes
-                                    number_of_quotes++;
-                                }
-                                if (number_of_quotes % 2 != 0) { // if the number of quotes is odd, throw an exception
-                                    throw new MissingQuotesException(
-                                            "The file " + manifest_part1[i] + " is missing a quote");
-                                }
+                        // Number of quotes need to be even in the title
+                        int number_of_quotes = 0;
+                        for (int k = 0; k < title.length(); k++) { // loop that goes through each character of
+                                                                   // the
+                                                                   // string, to search a quote
+
+                            if (title.charAt(k) == '"') { // if the character is a quote, increment the number of
+                                                          // quotes
+                                number_of_quotes++;
                             }
+
                         }
+                        if (number_of_quotes % 2 != 0) { // if the number of quotes is odd, throw an exception
+                            throw new MissingQuotesException(
+                                    "The file " + manifest_part1[i] + " is missing a quote");
+                        }
+
                         if (actor1.equals("") || actor2.equals("") || actor3.equals("")) {
                             throw new BadNameException("The file " + manifest_part1[i] + " is missing an actor(s)");
                         }
@@ -149,8 +151,9 @@ public class Movie {
                             throw new BadTitleException("The file " + manifest_part1[i] + " is missing a title");
                         }
 
-                        Movie.sortMovie(movie);
-                        sc.close();
+                        else {
+                            Movie.sortMovie(movie);
+                        }
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -165,6 +168,7 @@ public class Movie {
             }
 
         }
+
     }
 
     // Method that sorts the movies by genre
@@ -298,6 +302,14 @@ public class Movie {
 
             if (movie[3].equals("Documentary")) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\documentary.csv", true));
+                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
+                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
+                writer.newLine();
+                writer.close();
+            }
+
+            if (movie[3].equals("NC-17")) {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\nc_17.csv", true));
                 writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
                         + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
                 writer.newLine();
