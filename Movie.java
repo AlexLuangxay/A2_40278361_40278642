@@ -82,17 +82,27 @@ public class Movie {
                         String genre = movie[3];
                         String rating = movie[4];
                         double score = Double.parseDouble(movie[5]);
-                        String director = movie[6];
                         String actor1 = movie[7];
                         String actor2 = movie[8];
                         String actor3 = movie[9];
+
+                        // CHECKING SYNTAX ERRORS
+                        if (movie.length < 10) { // MissingFieldsException
+                            throw new MissingFieldsException(
+                                    "The file " + manifest_part1[i] + " is missing a field");
+                        }
+
+                        if (movie.length > 10) {// ExcessFieldsException
+                            throw new ExcessFieldsException(
+                                    "The file " + manifest_part1[i] + " has an excess of fields");
+                        }
 
                         if (year < 1900 || year > 2000) {// BadYearException
                             throw new BadYearException("The year is not valid");
                         }
 
                         if (duration < 0 || duration > 300) {// BadDurationException
-                            throw new BadDurationException("The length is not valid");
+                            throw new BadDurationException("The duration is not valid");
                         }
 
                         if (score < 0 || score > 10) {// BadScoreException
@@ -113,17 +123,6 @@ public class Movie {
                                 && !genre.equals("Thriller") && !genre.equals("Family")
                                 && !genre.equals("Romance") && !genre.equals("Fantasy")) {// BadGenreException
                             throw new BadGenreException("The genre is not valid");
-                        }
-
-                        // CHECKING SYNTAX ERRORS
-                        if (movie.length < 10) { // EccessFieldsException
-                            throw new MissingFieldsException(
-                                    "The file " + manifest_part1[i] + " is missing a field");
-                        }
-
-                        if (movie.length > 10) {// MissingFieldsException
-                            throw new ExcessFieldsException(
-                                    "The file " + manifest_part1[i] + " has an excess of fields");
                         }
 
                         // Number of quotes need to be even in the title

@@ -1,7 +1,4 @@
 1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall,
-1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall,
-1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall,
-1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall,
 1990,Dick Tracy,105,Action,PG,"6.1",Warren Beatty,Charlie Korsmo,Warren Beatty,Seymour Cassel,
 1990,Total Recall,113,Action,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
 2991,Hudson Hawk,100,Action,R,5.7,Michael Lehmann,Bruce Willis,James Coburn,Richard E. Grant
