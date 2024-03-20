@@ -40,22 +40,22 @@ public class Movie {
 
     // Method that returns path of the file by reading the manifest and putting each
     // line in a string array
-    public static String[] readManifest() {
-        String[] manifest_part1 = new String[10];
+    public static String[] readManifest(String path) {
+        String[] anymanifest = new String[10];
         try {
-            FileInputStream file = new FileInputStream("manifests_txt_files\\part1_manifest.txt");
+            FileInputStream file = new FileInputStream(path);
             Scanner sc = new Scanner(file);
             int count = 0;
             while (sc.hasNextLine() && count < 10) {
                 String line = sc.nextLine();
-                manifest_part1[count] = line;
+                anymanifest[count] = line;
                 count++;
             }
             sc.close();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        return manifest_part1;
+        return anymanifest;
     }
 
     // do_part_one_manifest method (this method will basically get each path from
