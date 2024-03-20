@@ -327,8 +327,7 @@ public class Movie {
 
     }
 
-    public void do_part2(String [] part2manifest){
-        //initializing two scanners, one to read the part2_manifest.txt, the other to read each csv file contained in that manifest
+    public static void do_part2(String [] part2manifest){
 Scanner csv = null;
 ObjectOutputStream outputStream = null;
 PrintWriter printWriter = null;
@@ -337,7 +336,7 @@ String [] part3manifest = part2manifest;
 try{
 
 //may need to create printwriter object here instead
-printWriter = new PrintWriter(new FileOutputStream("part3_manifest.txt"));
+printWriter = new PrintWriter(new FileOutputStream("part3_manifest.txt", true));
 
 for (int i = 0;i<part2manifest.length; i++){
 int csvMovieCount = 0;  //initializing a variable that will count how many movies a given csv file contains
@@ -352,7 +351,7 @@ csv.nextLine();
 
 Movie [] movies = new Movie[csvMovieCount];   //creating an array of movies for a particular genre, with the correct size
 
-for (int m = 0; i<movies.length && (csv.hasNextLine()); m++){
+for (int m = 0; m<movies.length && (csv.hasNextLine()); m++){
 
 int year = csv.nextInt();
 String title = csv.next();
@@ -365,7 +364,7 @@ String actor1 = csv.next();
 String actor2 = csv.next();
 String actor3 = csv.next();
 
-movies [i] = new Movie(year, title, length, genre, rating, score, director, actor1, actor2, actor3);
+movies [m] = new Movie(year, title, length, genre, rating, score, director, actor1, actor2, actor3);
 
 }
 
@@ -375,13 +374,12 @@ outputStream = new ObjectOutputStream( new FileOutputStream(part3manifest[i])); 
 
                                              //write to binary file here
                                               //append binary file to part3_manifest.txt
-for (int n = 0; i<movies.length; n++){
-outputStream.writeObject(movies[i]+"\n");  //writing to the .ser file
+for (int n = 0; n<movies.length; n++){
+outputStream.writeObject(movies[n]);  //writing to the .ser file
 }
 
 
 //appending the name of the binary file to the part3_manifest.txt file
-printWriter = new PrintWriter(new FileOutputStream("part3_manifest.txt", true));  
 printWriter.println(part3manifest[i]);
 
 
