@@ -4,6 +4,12 @@ import java.util.Scanner;
 import Exceptions.*;
 import java.io.FileWriter;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+
 public class Movie {
     // Attributes
     int year;
@@ -320,4 +326,78 @@ public class Movie {
         }
 
     }
+
+    public void do_part2(String [] part2manifest){
+        //initializing two scanners, one to read the part2_manifest.txt, the other to read each csv file contained in that manifest
+Scanner csv = null;
+ObjectOutputStream outputStream = null;
+PrintWriter printWriter = null;
+String [] part3manifest = part2manifest;
+
+try{
+
+//may need to create printwriter object here instead
+printWriter = new PrintWriter(new FileOutputStream("part3_manifest.txt"));
+
+for (int i = 0;i<part2manifest.length; i++){
+int csvMovieCount = 0;  //initializing a variable that will count how many movies a given csv file contains
+//for every line in part2_manifest.txt, stores the name of the csv file into a String variable and creates a Scanner that will read the csv file
+csv = new Scanner(new FileInputStream(part2manifest[i]));
+csv.useDelimiter(",");  //setting the delimiter of the csv file scanner as a comma, intead of a blank space to read the contents of the csv file(s)
+
+while(csv.hasNextLine()){      //counting how many movies a given csv file contains
+csvMovieCount++;
+csv.nextLine();
+}
+
+Movie [] movies = new Movie[csvMovieCount];   //creating an array of movies for a particular genre, with the correct size
+
+for (int m = 0; i<movies.length && (csv.hasNextLine()); m++){
+
+int year = csv.nextInt();
+String title = csv.next();
+int length = csv.nextInt();
+String genre = csv.next();
+String rating = csv.next();
+double score = csv.nextDouble();        //placing every movie the csv file contains into an array of Movie objects
+String director = csv.next();
+String actor1 = csv.next();
+String actor2 = csv.next();
+String actor3 = csv.next();
+
+movies [i] = new Movie(year, title, length, genre, rating, score, director, actor1, actor2, actor3);
+
+}
+
+part3manifest [i] = part2manifest [i].replaceAll("csv", "ser");  //replacing the file extension of the csv file with .ser
+
+outputStream = new ObjectOutputStream( new FileOutputStream(part3manifest[i]));  //creating the objectoutputstream that will be used for converting the csv file into a .ser file
+
+                                             //write to binary file here
+                                              //append binary file to part3_manifest.txt
+for (int n = 0; i<movies.length; n++){
+outputStream.writeObject(movies[i]+"\n");  //writing to the .ser file
+}
+
+
+//appending the name of the binary file to the part3_manifest.txt file
+printWriter = new PrintWriter(new FileOutputStream("part3_manifest.txt", true));  
+printWriter.println(part3manifest[i]);
+
+
+} //end of very first while loop
+csv.close();
+printWriter.close();
+}
+
+catch(FileNotFoundException e){                            //catching potential exceptions that might arise from creating those two objects
+System.out.println("a file was not found");
+}
+catch(IOException e){
+
+System.out.println("A reading error occured");
+}
+
+
+}
 }
