@@ -7,10 +7,12 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 
-public class Movie {
+public class Movie implements Serializable {
     // Attributes
     int year;
     String title;
@@ -69,31 +71,29 @@ public class Movie {
 
     public static void do_part_one_manifest(String[] manifest_part1) {
 
-        try{
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("manifests_txt_files\\part2_manifest.txt"));
             writer.write("musical.csv\n" + //
-                                "comedy.csv\n" + //
-                                "animation.csv\n" + //
-                                "adventure.csv\n" + //
-                                "drama.csv\n" + //
-                                "crime.csv\n" + //
-                                "biography.csv\n" + //
-                                "horror.csv\n" + //
-                                "action.csv\n" + //
-                                "documentary.csv\n" + //
-                                "fantasy.csv\n" + //
-                                "mystery.csv\n" + //
-                                "sci-fi.csv\n" + //
-                                "family.csv\n" + //
-                                "western.csv\n" + //
-                                "romance.csv\n" + //
-                                "thriller.csv");
+                    "comedy.csv\n" + //
+                    "animation.csv\n" + //
+                    "adventure.csv\n" + //
+                    "drama.csv\n" + //
+                    "crime.csv\n" + //
+                    "biography.csv\n" + //
+                    "horror.csv\n" + //
+                    "action.csv\n" + //
+                    "documentary.csv\n" + //
+                    "fantasy.csv\n" + //
+                    "mystery.csv\n" + //
+                    "sci-fi.csv\n" + //
+                    "family.csv\n" + //
+                    "western.csv\n" + //
+                    "romance.csv\n" + //
+                    "thriller.csv");
             writer.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-
 
         for (int i = 0; i < 10; i++) {
             try {
@@ -194,6 +194,7 @@ public class Movie {
                         writer.close();
                     }
                 }
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -339,18 +340,117 @@ public class Movie {
                 writer.close();
             }
 
-            if (movie[3].equals("NC-17")) {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("movie_genre\\nc_17.csv", true));
-                writer.write(movie[0] + "," + movie[1] + "," + movie[2] + "," + movie[3] + "," + movie[4] + ","
-                        + movie[5] + "," + movie[6] + "," + movie[7] + "," + movie[8] + "," + movie[9]);
-                writer.newLine();
-                writer.close();
-            }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static void do_part2(String[] manifest2) {
+
+        try { // Create the manifest 3
+            BufferedWriter writer = new BufferedWriter(new FileWriter("manifests_txt_files\\part3_manifest.txt"));
+            writer.write("musical.ser\n" + //
+                    "comedy.ser\n" + //
+                    "animation.ser\n" + //
+                    "adventure.ser\n" + //
+                    "drama.ser\n" + //
+                    "crime.ser\n" + //
+                    "biography.ser\n" + //
+                    "horror.ser\n" + //
+                    "action.ser\n" + //
+                    "documentary.ser\n" + //
+                    "fantasy.ser\n" + //
+                    "mystery.ser\n" + //
+                    "sci-fi.ser\n" + //
+                    "family.ser\n" + //
+                    "western.ser\n" + //
+                    "romance.ser\n" + //
+                    "thriller.ser");
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        for (int i = 0; i < manifest2.length; i++) { // Loop that goes through the manifestPart2 array, and read its
+                                                     // content of a specifique index, hence a specifique genre file
+
+            try {
+
+                // Opening the file, and counting how many movies are in this file, by counting
+                // the number of lines
+                FileInputStream file = new FileInputStream("movie_genre\\" + manifest2[i]);
+                Scanner sc = new Scanner(file);
+
+                int movieCounter = 0;
+                while (sc.hasNextLine()) {
+                    movieCounter++;
+                    sc.nextLine();
+                }
+
+                Movie[] arr = new Movie[movieCounter]; // Creating an array with a length of the number of movies
+                                                       // counted
+
+                sc.close();
+
+                // Reread the file from the begining, and store each line as a movie object
+                FileInputStream file2 = new FileInputStream("movie_genre\\" + manifest2[i]);
+                Scanner sc2 = new Scanner(file2);
+                for (int j = 0; j < movieCounter; j++) {
+
+                    String line = sc2.nextLine();
+                    String[] movie = line.split(",");
+
+                    int year = Integer.parseInt(movie[0]);
+                    String title = movie[1];
+                    int length = Integer.parseInt(movie[2]);
+                    String genre = movie[3];
+                    String rating = movie[4];
+                    double score = Double.parseDouble(movie[5]);
+                    String director = movie[6];
+                    String actor1 = movie[7];
+                    String actor2 = movie[8];
+                    String actor3 = movie[9];
+
+                    Movie m = new Movie(year, title, length, genre, rating, score, director, actor1, actor2, actor3);
+                    arr[j] = m;
+
+                }
+                sc.close();
+
+                // Create a file with the same name as the genre file, but with the .ser
+                // extension
+
+                String[] manifest_part3 = Movie.readManifest("manifests_txt_files\\part3_manifest.txt");
+
+                FileOutputStream fileOut = new FileOutputStream("movie_genre_ser\\" + manifest_part3[i]);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                // Write the array of movies to the file
+                for (int x = 0; x < arr.length; x++) {
+                    out.writeObject(arr[x]);
+                }
+
+                ObjectInputStream example = new ObjectInputStream(new FileInputStream("movie_genre_ser\\adventure.ser"));
+                for (int x = 0; x < 39; x++) {
+                    System.out.println(example.readObject());
+                }
+                out.close();
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+    }
+
+    // movie toString method
+    public String toString() {
+        return "Year: " + year + " Title: " + title + " Duration: " + duration + " Genre: " + genre + " Rating: "
+                + rating
+                + " Score: " + score + " Director: " + director + " Actor1: " + actor1 + " Actor2: " + actor2
+                + " Actor3: "
+                + actor3;
     }
 
 }
