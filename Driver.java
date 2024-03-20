@@ -7,8 +7,7 @@ public class Driver {
 
         String[] manifest_part2 = Movie.readManifest("manifests_txt_files\\part2_manifest.txt");
 
-        Movie.do_part2(manifest_part2);
-        
+    
 
  
 

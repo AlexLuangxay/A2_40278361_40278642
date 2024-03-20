@@ -69,6 +69,32 @@ public class Movie {
 
     public static void do_part_one_manifest(String[] manifest_part1) {
 
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("manifests_txt_files\\part2_manifest.txt"));
+            writer.write("musical.csv\n" + //
+                                "comedy.csv\n" + //
+                                "animation.csv\n" + //
+                                "adventure.csv\n" + //
+                                "drama.csv\n" + //
+                                "crime.csv\n" + //
+                                "biography.csv\n" + //
+                                "horror.csv\n" + //
+                                "action.csv\n" + //
+                                "documentary.csv\n" + //
+                                "fantasy.csv\n" + //
+                                "mystery.csv\n" + //
+                                "sci-fi.csv\n" + //
+                                "family.csv\n" + //
+                                "western.csv\n" + //
+                                "romance.csv\n" + //
+                                "thriller.csv");
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
         for (int i = 0; i < 10; i++) {
             try {
                 FileInputStream file = new FileInputStream("Input files\\" + manifest_part1[i]);
