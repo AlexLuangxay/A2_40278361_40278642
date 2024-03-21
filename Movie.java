@@ -49,21 +49,38 @@ public class Movie implements Serializable {
     // Method that returns path of the file by reading the manifest and putting each
     // line in a string array
     public static String[] readManifest(String path) {
-        String[] anymanifest = new String[10];
+
+        // Counting the number of lines in the file
+
+        int movieCount = 0;
         try {
             FileInputStream file = new FileInputStream(path);
             Scanner sc = new Scanner(file);
-            int count = 0;
-            while (sc.hasNextLine() && count < 10) {
-                String line = sc.nextLine();
-                anymanifest[count] = line;
-                count++;
+
+            while (sc.hasNextLine()) {
+                movieCount++;
+                sc.nextLine();
             }
-            sc.close();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        return anymanifest;
+
+        String[] anyManifest = new String[movieCount];
+        try {
+            FileInputStream file2 = new FileInputStream(path);
+            Scanner sc2 = new Scanner(file2);
+            int count = 0;
+            while (sc2.hasNextLine()) {
+                String line = sc2.nextLine();
+                anyManifest[count] = line;
+                count++;
+            }
+            sc2.close();
+            return anyManifest;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return anyManifest;
     }
 
     // do_part_one_manifest method (this method will basically get each path from
@@ -430,11 +447,15 @@ public class Movie implements Serializable {
                     out.writeObject(arr[x]);
                 }
 
-                ObjectInputStream example = new ObjectInputStream(new FileInputStream("movie_genre_ser\\adventure.ser"));
-                for (int x = 0; x < 39; x++) {
-                    System.out.println(example.readObject());
-                }
-                out.close();
+                // See if it the serialization worked
+                /*
+                 * ObjectInputStream example = new ObjectInputStream(
+                 * new FileInputStream("movie_genre_ser\\adventure.ser"));
+                 * for (int x = 0; x < 39; x++) {
+                 * System.out.println(example.readObject());
+                 * }
+                 * out.close();
+                 */
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -451,6 +472,53 @@ public class Movie implements Serializable {
                 + " Score: " + score + " Director: " + director + " Actor1: " + actor1 + " Actor2: " + actor2
                 + " Actor3: "
                 + actor3;
+    }
+
+    // part 3 method
+    // Deserialize the files and put the movies in an array
+    public static void do_part3(String[] manifest_part3) {
+
+        Movie[] arrOfArrMovies = new Movie[17];
+        
+        for (int i = 0; i < manifest_part3.length; i++) {
+            int movieCounter = 0;
+            try {
+                FileInputStream file = new FileInputStream("movie_genre_ser\\" + manifest_part3[i]);
+                ObjectInputStream reader = new ObjectInputStream(file);
+
+                // Counting how many objects are in the binary file
+
+                while (true) {
+                    try {
+                        Movie m = (Movie) reader.readObject();
+                        movieCounter++;
+                    } catch (Exception e) {
+                        break;
+                    }
+                }
+                reader.close();
+
+                // Creating an array with the number of objects counted 
+                Movie[] arr = new Movie[movieCounter];
+
+                FileInputStream file2 = new FileInputStream("movie_genre_ser\\" + manifest_part3[i]);
+                ObjectInputStream reader2 = new ObjectInputStream(file2);
+
+                // Storing each object in the array
+                for (int j = 0; j < movieCounter; j++) {
+                    Movie m = (Movie) reader2.readObject();
+                    arr[j] = m;
+                }
+                reader2.close();
+
+                arrOfArrMovies[i] = arr;
+
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
     }
 
 }
