@@ -33,7 +33,9 @@ public class Driver {
 
         Movie.do_part2(manifest_part2);
 
-        ;
+        String[] manifest_part3 = Movie.readManifest("manifests_txt_files\\part3_manifest.txt");
+        Movie.do_part3(manifest_part3);
+
 
     }
 
