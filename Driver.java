@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class Driver {
 
    static String choiceN = "n Navigate musical movies (0 records)";
+
+    static Object [] allMovies = null;
     public static void main(String[] args) {
 
         String[] manifest_part1 = Movie.readManifest("manifests_txt_files\\part1_manifest.txt");
@@ -38,6 +40,8 @@ public class Driver {
 
         String[] manifest_part3 = Movie.readManifest("manifests_txt_files\\part3_manifest.txt");
         Movie.do_part3(manifest_part3);
+
+        allMovies = Movie.do_part3(manifest_part3);
 
         mainMenu();
 
@@ -285,7 +289,76 @@ public class Driver {
         }
 
         public static void displayMovies(){
-            
+            int startIndex = 0;
+            Scanner in = new Scanner (System.in);
+            int choice = in.nextInt();
+
+            int amount = Math.abs(choice)-1;
+
+            if (choice == 0){
+                mainMenu();
+            }
+
+            if (choice>0){
+
+                switch (choiceN){
+                    case "n Navigate comedy movies (73 records)":
+                    //display comedy movies
+
+                    allMovies [0]
+
+                    break;
+
+                    case "n Navigate animation movies (2 records)":
+                    //display animation movies
+                    break;
+
+                    case "n Navigate adventure movies (28 records)":
+                    //display adventure movies
+                    break;
+
+                    case "n Navigate drama movies (43 records)":
+                    //display drama movies
+                    break;
+
+                    case "n Navigate crime movies (11 records)":
+                    //display crime movies
+                    break;
+
+                    case "n Navigate biography movies (10 records)":
+                    //display biography movies
+                    break;
+
+                    case "n Navigate horror movies (11 records)":
+                    //display horror movies
+                    break;
+
+                    case "n Navigate action movies (71 records)":
+                    //display action movies
+                    break;
+
+                    case "n Navigate documentary movies (7 records)":
+                    //display documentary movies
+                    break;
+
+                    case "n Navigate fantasy movies (3 records)":
+                    //display fantasy movies
+                    break;
+
+                    case "n Navigate mystery movies (3 records)":
+                    //display mystery movies
+                    break;
+
+                    case "n Navigate romance movies (1 records)":
+                    //display romance movies
+                    break;
+                }
+            }
+
+            if (choice <0){
+
+
+            }
         }
 
 

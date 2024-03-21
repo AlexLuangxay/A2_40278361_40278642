@@ -476,7 +476,7 @@ public class Movie implements Serializable {
 
     // part 3 method
     // Deserialize the files and put the movies in an array
-    public static void do_part3(String[] manifest_part3) {
+    public static Object [] do_part3(String[] manifest_part3) {
 
         Object [] arrOfArrMovies = new Movie[17];
         
@@ -519,6 +519,8 @@ public class Movie implements Serializable {
             }
 
         }
+
+        return arrOfArrMovies;
     }
 
 
