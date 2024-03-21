@@ -2,8 +2,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Driver {
+
+   static String choiceN = "n Navigate musical movies (0 records)";
     public static void main(String[] args) {
 
         String[] manifest_part1 = Movie.readManifest("manifests_txt_files\\part1_manifest.txt");
@@ -36,6 +39,8 @@ public class Driver {
         String[] manifest_part3 = Movie.readManifest("manifests_txt_files\\part3_manifest.txt");
         Movie.do_part3(manifest_part3);
 
+        mainMenu();
+
 
     }
 
@@ -44,12 +49,26 @@ public class Driver {
         System.out.println("Main Menu");
         System.out.println("----------------------------");
         System.out.println("s Select a movie array to navigate");
-        System.out.println("n Navigate musical movies (0 records)");
+        System.out.println(choiceN);
         System.out.println("x Exit");
         System.out.println("-----------------------------");
+
+        Scanner in = new Scanner (System.in);
+        String choice = in.nextLine();
+
+        if (choice.equals("s")) {
+            navigationMenu();
+        } else if (choice.equals("n")) {
+            //other method here
+            navigateGenre();
+        } else if (choice.equals("x") || choice.equals("X")) {
+            System.exit(0);
+        } else {
+            System.out.println("Invalid choice");
+        }
     }
 
-    public static void navigate() {
+    public static void navigationMenu() {
         System.out.println("------------------------------");
         System.out.println("Genre Sub-Menu");
         System.out.println("------------------------------");
@@ -72,8 +91,206 @@ public class Driver {
         System.out.println("17 thriller (0 movies)");
         System.out.println("18 Exit");
         System.out.println("------------------------------");
+
+        Scanner in = new Scanner (System.in);
+        String choice = in.nextLine();
+
+        switch (choice){
+            case "1":
+
+            choiceN = "n Navigate musical movies (0 records)";
+            mainMenu();
+            break;
+
+            case "2":
+            choiceN = "n Navigate comedy movies (73 records)";
+            mainMenu();
+            break;
+
+            case "3":
+            choiceN = "n Navigate animation movies (2 records)";
+            mainMenu();
+            break;
+
+            case "4":
+            choiceN = "n Navigate adventure movies (28 records)";
+            mainMenu();
+            break;
+
+            case "5":
+            choiceN = "n Navigate drama movies (43 records)";
+            mainMenu();
+            break;
+
+            case "6":
+            choiceN = "n Navigate crime movies (11 records)";
+            mainMenu();
+            break;
+
+            case "7":
+            choiceN = "n Navigate biography movies (10 records)";
+            mainMenu();
+            break;
+
+            case "8":
+            choiceN = "n Navigate horror movies (11 records)";
+            mainMenu();
+            break;
+
+            case "9":
+            choiceN = "n Navigate action movies (71 records)";
+            mainMenu();
+            break;
+
+            case "10":
+            choiceN = "n Navigate documentary movies (7 records)";
+            mainMenu();
+            break;
+
+            case "11":
+            choiceN = "n Navigate fantasy movies (3 records)";
+            mainMenu();
+            break;
+
+            case "12":
+            choiceN = "n Navigate mystery movies (3 records)";
+            mainMenu();
+            break;
+
+            case "13":
+            choiceN = "n Navigate sci-fi movies (0 records)";
+            mainMenu();
+            break;
+
+            case "14":
+            choiceN = "n Navigate family movies (0 records)";
+            mainMenu();
+            break;
+
+            case "15":
+            choiceN = "n Navigate western movies (0 records)";
+            mainMenu();
+            break;
+
+            case "16":
+            choiceN = "n Navigate romance movies (1 records)";
+            mainMenu();
+            break;
+
+            case "17":
+            choiceN = "n Navigate thriller movies (0 records)";
+            mainMenu();
+            break;
+
+            case "18":
+            mainMenu();
+            break;
+
+            default:
+            System.out.println("Invalid choice");
+            break;
+
+        }
     }
 
-    
+    public static void navigateGenre(){
 
-}
+        switch (choiceN){
+            case "n Navigate musical movies (0 records)":
+            System.out.println("No records found");
+            mainMenu();
+            break;
+
+            case "n Navigate comedy movies (73 records)":
+                System.out.println("Navigating comedy movies (73 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate animation movies (2 records)":
+                System.out.println("Navigating animation movies (2 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate adventure movies (28 records)":
+                System.out.println("Navigating adventure movies (28 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate drama movies (43 records)":
+                System.out.println("Navigating drama movies (43 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate crime movies (11 records)":
+                System.out.println("Navigating crime movies (11 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate biography movies (10 records)":
+                System.out.println("Navigating biography movies (10 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate horror movies (11 records)":
+                System.out.println("Navigating horror movies (11 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate action movies (71 records)":
+                System.out.println("Navigating action movies (71 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate documentary movies (7 records)":
+                System.out.println("Navigating documentary movies (7 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate fantasy movies (3 records)":
+                System.out.println("Navigating fantasy movies (3 records)");
+                System.out.println("Enter choice: ");
+                break;
+            
+            case "n Navigate mystery movies (3 records)":
+                System.out.println("Navigating mystery movies (3 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate sci-fi movies (0 records)":
+                System.out.println("No records found");
+                mainMenu();
+                break;
+            
+            case "n Navigate family movies (0 records)":
+                System.out.println("No records found");
+                mainMenu();
+                break;
+
+            case "n Navigate western movies (0 records)":
+                System.out.println("No records found");
+                mainMenu();
+                break;
+
+            case "n Navigate romance movies (1 records)":
+                System.out.println("Navigating romance movies (1 records)");
+                System.out.println("Enter choice: ");
+                break;
+
+            case "n Navigate thriller movies (0 records)":
+                System.out.println("No records found");
+                mainMenu();
+                break;
+        }
+
+        }
+
+        public static void displayMovies(){
+            
+        }
+
+
+    }
+
+
+
+
