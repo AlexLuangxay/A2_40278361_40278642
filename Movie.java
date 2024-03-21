@@ -49,21 +49,38 @@ public class Movie implements Serializable {
     // Method that returns path of the file by reading the manifest and putting each
     // line in a string array
     public static String[] readManifest(String path) {
-        String[] anymanifest = new String[10];
+
+        // Counting the number of lines in the file
+        
+        int movieCount = 0;
         try {
             FileInputStream file = new FileInputStream(path);
             Scanner sc = new Scanner(file);
-            int count = 0;
-            while (sc.hasNextLine() && count < 10) {
-                String line = sc.nextLine();
-                anymanifest[count] = line;
-                count++;
+            
+            while (sc.hasNextLine()) {
+                movieCount++;
+                sc.nextLine();
             }
-            sc.close();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        return anymanifest;
+
+        String[] anyManifest = new String[movieCount];
+        try {
+            FileInputStream file2 = new FileInputStream(path);
+            Scanner sc2 = new Scanner(file2);
+            int count = 0;
+            while (sc2.hasNextLine()) {
+                String line = sc2.nextLine();
+                anyManifest[count] = line;
+                count++;
+            }
+            sc2.close();
+            return anyManifest;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return anyManifest;
     }
 
     // do_part_one_manifest method (this method will basically get each path from
@@ -430,7 +447,8 @@ public class Movie implements Serializable {
                     out.writeObject(arr[x]);
                 }
 
-                ObjectInputStream example = new ObjectInputStream(new FileInputStream("movie_genre_ser\\adventure.ser"));
+                ObjectInputStream example = new ObjectInputStream(
+                        new FileInputStream("movie_genre_ser\\adventure.ser"));
                 for (int x = 0; x < 39; x++) {
                     System.out.println(example.readObject());
                 }
@@ -451,6 +469,11 @@ public class Movie implements Serializable {
                 + " Score: " + score + " Director: " + director + " Actor1: " + actor1 + " Actor2: " + actor2
                 + " Actor3: "
                 + actor3;
+    }
+
+    // part 3 method
+    public static void do_part3(String[] manifest_part3) {
+
     }
 
 }
