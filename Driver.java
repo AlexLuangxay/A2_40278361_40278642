@@ -305,7 +305,11 @@ public class Driver {
                     case "n Navigate comedy movies (73 records)":
                     //display comedy movies
 
-                    allMovies [0]
+                    for (int i = 0; i<amount; i++){
+                        System.out.println(allMovies [0] [i]);
+                        startIndex += amount;
+                    }
+                    
 
                     break;
 

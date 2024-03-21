@@ -476,10 +476,10 @@ public class Movie implements Serializable {
 
     // part 3 method
     // Deserialize the files and put the movies in an array
-    public static Object [] do_part3(String[] manifest_part3) {
+    public static Movie [] [] do_part3(String[] manifest_part3) {
 
-        Object [] arrOfArrMovies = new Movie[17];
-        
+        Movie[][] arrOfArrMovies = new Movie[17][];
+
         for (int i = 0; i < manifest_part3.length; i++) {
             int movieCounter = 0;
             try {
@@ -498,7 +498,7 @@ public class Movie implements Serializable {
                 }
                 reader.close();
 
-                // Creating an array with the number of objects counted 
+                // Creating an array with the number of objects counted
                 Movie[] arr = new Movie[movieCounter];
 
                 FileInputStream file2 = new FileInputStream("movie_genre_ser\\" + manifest_part3[i]);
@@ -513,17 +513,22 @@ public class Movie implements Serializable {
 
                 arrOfArrMovies[i] = arr;
 
-
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
         }
+        int numberOfMovie = 0; 
+        for (int i = 0; i < 17; i++) {// Printing all the movies from the array of movie array, to make sure that it is correct
+            for (int j = 0; j < arrOfArrMovies[i].length; j++) {
+                System.out.println(arrOfArrMovies[i][j]);
+                numberOfMovie++;
+            }
+            System.out.println(numberOfMovie);
+
+        }
 
         return arrOfArrMovies;
     }
-
-
-    
 
 }
