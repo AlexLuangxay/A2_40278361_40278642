@@ -54,7 +54,7 @@ public class Driver {
         String[] manifest_part3 = Movie.readManifest("manifests_txt_files\\part3_manifest.txt");
         //Movie.do_part3(manifest_part3);
 
-        allMovies = Movie.do_part3(manifest_part3);
+       Movie[][] allMovies = Movie.do_part3(manifest_part3);
 
         System.out.println(allMovies[0][0]);
        // mainMenu();

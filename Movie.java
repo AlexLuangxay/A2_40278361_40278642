@@ -526,7 +526,7 @@ public class Movie implements Serializable {
             }
             System.out.println(numberOfMovie);
 
-        }
+        } 
 
         return arrOfArrMovies;
     }
