@@ -471,7 +471,7 @@ public class Movie implements Serializable {
                 + rating
                 + " Score: " + score + " Director: " + director + " Actor1: " + actor1 + " Actor2: " + actor2
                 + " Actor3: "
-                + actor3;
+                + actor3+"\n-----------------------------------";
     }
 
     // part 3 method
@@ -513,20 +513,22 @@ public class Movie implements Serializable {
 
                 arrOfArrMovies[i] = arr;
 
+                
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
         }
         int numberOfMovie = 0; 
-        for (int i = 0; i < 17; i++) {// Printing all the movies from the array of movie array, to make sure that it is correct
+        /*for (int i = 0; i < 17; i++) {// Printing all the movies from the array of movie array, to make sure that it is correct
             for (int j = 0; j < arrOfArrMovies[i].length; j++) {
                 System.out.println(arrOfArrMovies[i][j]);
                 numberOfMovie++;
             }
             System.out.println(numberOfMovie);
 
-        } 
+        } */
 
         return arrOfArrMovies;
     }
